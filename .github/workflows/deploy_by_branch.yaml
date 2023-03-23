@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v3
       - run: npm ci
         working-directory: app
-      - run: npm run storybook-build
+      - run: npm run build-storybook
         working-directory: app
       - name: Upload
         uses: actions/upload-pages-artifact@v1.0.7
