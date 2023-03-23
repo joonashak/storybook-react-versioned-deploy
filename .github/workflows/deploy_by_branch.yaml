@@ -10,7 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - run: npm ci
+        working-directory: app
       - run: npm run storybook-build
+        working-directory: app
       - name: Upload
         uses: actions/upload-pages-artifact@v1.0.7
         with:
