@@ -1,0 +1,31 @@
+name: Deploy by branch
+
+on: push
+
+jobs:
+  build:
+    name: Deploy Storybook to branch subfolder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run storybook-build
+      - name: Upload
+        uses: actions/upload-pages-artifact@v1.0.7
+        with:
+          path: "storybook-static"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      #url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1.2.4
